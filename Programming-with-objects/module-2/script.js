@@ -94,9 +94,19 @@ const carJson = JSON.stringify(car);
 console.log(carJson);
 
 //form
-const todo = JSON.parse(localStorage.getItem("todo"));
+const localData = JSON.parse(localStorage.getItem("todo"));
+
+let todo = [];
+
+if (localData) {
+  todo = localData;
+}
+
 const container = document.querySelector(".container");
 const form = document.querySelector("form");
+todo.forEach((item) => {
+  createItem(item);
+});
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -128,3 +138,9 @@ console.log(text);
 // parsing the json text into a ""javaScript object" again so we can use it in our code
 const newObject = JSON.parse(text);
 console.log(newObject);
+
+document.querySelector("#clear").addEventListener("click", () => {
+  localStorage.clear();
+  todo = [];
+  container.innerHTML = "";
+});
